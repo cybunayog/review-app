@@ -1,11 +1,11 @@
+require('dotenv').config();
 const mongoose = require("mongoose");
 
 mongoose.Promise = global.Promise;
 let isConnected;
 
 // Note: This should be stored in environment variables
-const DB_URL =
-  "mongodb+srv://admin:HBLDemo@cluster0-5eefd.mongodb.net/test?retryWrites=true&w=majority";
+const DB_URL = `mongodb+srv://cy:${process.env.DB_PASSWORD}@cluster0.tdnbn.mongodb.net/test?retryWrites=true&w=majority`;
 
 const connectToDatabase = () => {
   if (isConnected) {
