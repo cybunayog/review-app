@@ -9,6 +9,14 @@ export const saveAuthToken = token => {
   return AsyncStorage.setItem(AUTH_TOKEN, token);
 };
 
+export const hasAuthToken = () => {
+  return AsyncStorage.getItem(AUTH_TOKEN).then(token => {
+    if (token) return true;
+
+    return false;
+  })
+};
+
 export const reviewApi = (path, options = {}) => {
   const completeOptions = {
     ...options,
