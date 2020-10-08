@@ -18,22 +18,29 @@ export const hasAuthToken = () => {
 };
 
 export const reviewApi = (path, options = {}) => {
-  const completeOptions = {
-    ...options,
-    headers: {
-      ...options.headers,
-      'Content-Type': 'application/json'
-    }
-  };
+  return AsyncStorage.getItem(AUTH_TOKEN)
+    .then(token => {
+      const completeOptions = {
+        ...options,
+        headers: {
+          ...options.headers,
+          'Content-Type': 'application/json'
+        }
+      };
+      
+      // Verifying authorization
+      if (token) completeOptions.headers.authorization = `Bearer ${token}`;
+  
+      return fetch(`${BASE_URL}/api${path}`, completeOptions).then(async res => {
+        const responseJson = await res.json();
 
-  return fetch(`${BASE_URL}/api${path}`, completeOptions).then(async res => {
-    const responseJson = await res.json();
+        if (res.ok) {
+          return responseJson;
+        }
 
-    if (res.ok) {
-      return responseJson;
-    }
-
-    throw new Error(responseJson.error);
-  });
+        throw new Error(responseJson.error);
+      });
+  })
+  
 
 }
