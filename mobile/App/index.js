@@ -9,6 +9,7 @@ import SignIn from "./screens/SignIn";
 import CreateAccount from "./screens/CreateAccount";
 import Initializing from 'review/App/screens/Initializing';
 import { saveAuthToken } from 'review/App/util/api';
+import { setTopLevelNavigator } from 'review/App/util/NavigationService';
 
 const defaultStackOptions = {
   headerStyle: {
@@ -79,6 +80,8 @@ const AppWithContainer = createAppContainer(App);
 export default () => (
   <React.Fragment>
     <StatusBar barStyle="light-content" />
-    <AppWithContainer />
+    <AppWithContainer
+      ref={navigatorRef => setTopLevelNavigator(navigatorRef)}
+    />
   </React.Fragment>
 );

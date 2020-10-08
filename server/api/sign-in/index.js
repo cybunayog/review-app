@@ -19,7 +19,9 @@ app.post("*", (req, res) => {
     .then(isPasswordCorrect => {
       if (!isPasswordCorrect) throw new Error('Invalid password!');
 
-      return jwt.sign({ userId: finalUser._id}, config.JWT_SECRET);
+      return jwt.sign({ userId: finalUser._id }, config.JWT_SECRET, {
+        expiresIn: "1m"
+      });
     })
     .then(token => {
       res.status(200).json({

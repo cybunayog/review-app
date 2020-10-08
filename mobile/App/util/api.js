@@ -1,4 +1,5 @@
 import { AsyncStorage } from 'react-native';
+import { navigate } from 'review/App/util/NavigationService';
 
 const BASE_URL = "http://192.168.1.67:3000";
 const AUTH_TOKEN = 'ReviewApp::AUTH_TOKEN';
@@ -34,9 +35,13 @@ export const reviewApi = (path, options = {}) => {
       return fetch(`${BASE_URL}/api${path}`, completeOptions).then(async res => {
         const responseJson = await res.json();
 
-        if (res.ok) {
-          return responseJson;
+        if (res.ok) return responseJson;
+      
+        if (res.status === 401) {
+          navigate('Auth');
+          saveAuthToken();
         }
+
 
         throw new Error(responseJson.error);
       });
