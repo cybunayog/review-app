@@ -49,12 +49,12 @@ const Information = createStackNavigator(
 
 const Auth = createStackNavigator(
   {
-    // CreateAccount: {
-    //   screen: CreateAccount,
-    //   navigationOptions: {
-    //     headerTitle: "Create Account"
-    //   }
-    // },
+    CreateAccount: {
+      screen: CreateAccount,
+      navigationOptions: {
+        headerTitle: "Create Account"
+      }
+    },
     SignIn: {
       screen: SignIn,
       navigationOptions: {
